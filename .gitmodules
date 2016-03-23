@@ -1,0 +1,3 @@
+[submodule "webgl-lessons"]
+	path = webgl-lessons
+	url = https://github.com/KuoE0/webgl-lessons.git
