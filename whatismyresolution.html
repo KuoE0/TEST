@@ -12,15 +12,19 @@
 		<script>
 			var width = screen.width;
 			var height = screen.height;
+			var pixelRatio = window.devicePixelRatio;
 			var infoNode = document.getElementById('info');
 
-			var width_text = document.createElement('p');
-			width_text.textContent = "Width: " + width;
-			var height_text = document.createElement('p');
-			height_text.textContent = "Height: " + height;
+			var widthElem = document.createElement('p');
+			widthElem.textContent = "Width: " + width;
+			var heightElem = document.createElement('p');
+			heightElem.textContent = "Height: " + height;
+			var pixelRatioElem = document.createElement('p');
+			pixelRatioElem.textContent = "Pixel Ratio: " + pixelRatio;
 
-			infoNode.appendChild(width_text);
-			infoNode.appendChild(height_text);
+			infoNode.appendChild(widthElem);
+			infoNode.appendChild(heightElem);
+			infoNode.appendChild(pixelRatioElem);
 		</script>
 	</body>
 </html>
