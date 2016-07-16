@@ -3,63 +3,71 @@
 	<head>
         <meta charset="utf-8" />
 		<title>performancetimingapi</title>
+
+		<script>
+			window.onload = () => {
+				var perfData                   = window.performance.timing;
+
+				var navigationStart            = perfData.navigationStart;
+				var domLoading                 = perfData.domLoading;
+				var domInteractive             = perfData.domInteractive;
+				var domContentLoadedEventStart = perfData.domContentLoadedEventStart;
+				var domContentLoadedEventEnd   = perfData.domContentLoadedEventEnd;
+				var domComplete                = perfData.domComplete;
+				var loadEventStart             = perfData.loadEventStart;
+				var loadEventEnd               = perfData.loadEventEnd;
+				var requestStart               = perfData.requestStart;
+				var responseStart              = perfData.responseStart;
+				var responseEnd                = perfData.responseEnd;
+
+				var navigationStartElem            = document.createElement('p');
+				var domLoadingElem                 = document.createElement('p');
+				var domInteractiveElem             = document.createElement('p');
+				var domContentLoadedEventStartElem = document.createElement('p');
+				var domContentLoadedEventEndElem   = document.createElement('p');
+				var domCompleteElem                = document.createElement('p');
+				var loadEventStartElem             = document.createElement('p');
+				var loadEventEndElem               = document.createElement('p');
+				var requestStartElem               = document.createElement('p');
+				var responseStartElem              = document.createElement('p');
+				var responseEndElem                = document.createElement('p');
+
+				navigationStartElem.textContent            = "navigationStart: " + navigationStart;
+				domLoadingElem.textContent                 = "domLoading: " + domLoading;
+				domInteractiveElem.textContent             = "domInteractive: " + domInteractive;
+				domContentLoadedEventStartElem.textContent = "domContentLoadedEventStart: " + domContentLoadedEventStart;
+				domContentLoadedEventEndElem.textContent   = "domContentLoadedEventEnd: " + domContentLoadedEventEnd;
+				domCompleteElem.textContent                = "domComplete: " + domComplete;
+				loadEventStartElem.textContent             = "loadEventStart: " + loadEventStart;
+				loadEventEndElem.textContent               = "loadEventEnd: " + loadEventEnd;
+				requestStartElem.textContent               = "requestStart: " + requestStart;
+				responseStartElem.textContent              = "responseStart: " + responseStart;
+				responseEndElem.textContent                = "responseEnd: " + responseEnd;
+
+				var infoNode = document.getElementById('info');
+
+				infoNode.appendChild(navigationStartElem);
+				infoNode.appendChild(domLoadingElem);
+				infoNode.appendChild(domInteractiveElem);
+				infoNode.appendChild(domContentLoadedEventStartElem);
+				infoNode.appendChild(domContentLoadedEventEndElem);
+				infoNode.appendChild(domCompleteElem);
+				infoNode.appendChild(loadEventStartElem);
+				infoNode.appendChild(loadEventEndElem);
+				infoNode.appendChild(requestStartElem);
+				infoNode.appendChild(responseStartElem);
+				infoNode.appendChild(responseEndElem);
+			};
+
+		</script>
 	</head>
 	<body>
-		
 		<div id="info">
 		</div>
-		<script>
-			var perfData                   = window.performance.timing;
-
-			var navigationStart            = perfData.navigationStart;
-			var domLoading                 = perfData.domLoading;
-			var domInteractive             = perfData.domInteractive;
-			var domContentLoadedEventStart = perfData.domContentLoadedEventStart;
-			var domContentLoadedEventEnd   = perfData.domContentLoadedEventEnd;
-			var domComplete                = perfData.domComplete;
-			var loadEventStart             = perfData.loadEventStart;
-			var loadEventEnd               = perfData.loadEventEnd;
-			var requestStart               = perfData.requestStart;
-			var responseStart              = perfData.responseStart;
-			var responseEnd                = perfData.responseEnd;
-
-			var navigationStartElem            = document.createElement('p');
-			var domLoadingElem                 = document.createElement('p');
-			var domInteractiveElem             = document.createElement('p');
-			var domContentLoadedEventStartElem = document.createElement('p');
-			var domContentLoadedEventEndElem   = document.createElement('p');
-			var domCompleteElem                = document.createElement('p');
-			var loadEventStartElem             = document.createElement('p');
-			var loadEventEndElem               = document.createElement('p');
-			var requestStartElem               = document.createElement('p');
-			var responseStartElem              = document.createElement('p');
-			var responseEndElem                = document.createElement('p');
-
-			navigationStartElem.textContent            = "navigationStart: " + navigationStart;
-			domLoadingElem.textContent                 = "domLoading: " + domLoading;
-			domInteractiveElem.textContent             = "domInteractive: " + domInteractive;
-			domContentLoadedEventStartElem.textContent = "domContentLoadedEventStart: " + domContentLoadedEventStart;
-			domContentLoadedEventEndElem.textContent   = "domContentLoadedEventEnd: " + domContentLoadedEventEnd;
-			domCompleteElem.textContent                = "domComplete: " + domComplete;
-			loadEventStartElem.textContent             = "loadEventStart: " + loadEventStart;
-			loadEventEndElem.textContent               = "loadEventEnd: " + loadEventEnd;
-			requestStartElem.textContent               = "requestStart: " + requestStart;
-			responseStartElem.textContent              = "responseStart: " + responseStart;
-			responseEndElem.textContent                = "responseEnd: " + responseEnd;
-
-			var infoNode = document.getElementById('info');
-
-			infoNode.appendChild(navigationStartElem);
-			infoNode.appendChild(domLoadingElem);
-			infoNode.appendChild(domInteractiveElem);
-			infoNode.appendChild(domContentLoadedEventStartElem);
-			infoNode.appendChild(domContentLoadedEventEndElem);
-			infoNode.appendChild(domCompleteElem);
-			infoNode.appendChild(loadEventStartElem);
-			infoNode.appendChild(loadEventEndElem);
-			infoNode.appendChild(requestStartElem);
-			infoNode.appendChild(responseStartElem);
-			infoNode.appendChild(responseEndElem);
-		</script>
+		<div id="iframe_test" style="border: solid 1px black">
+			<p>This iframe is used to test how many times of SetRequestStart called.</p>
+			<iframe src="resources/blank_page_green.html"
+					style="width: 250px; height: 250px;"></iframe>
+		</div>
 	</body>
 </html>
