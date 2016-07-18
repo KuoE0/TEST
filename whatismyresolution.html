@@ -3,43 +3,178 @@
 	<head>
         <meta charset="utf-8" />
 		<title>whatismyresolution</title>
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href=https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css />
 		<style>
-			body {
-				background-color: black;
-				border: solid 5px #fff;
-				color: white;
-				font-family: sans-serif;
-				text-align: left;
-				margin: 0;
-				padding: 1em;
-				height: 100vh;
-				box-sizing: border-box;
+			html {
+				width: 100%;
+				height: 100%;
+				color: #555;
+				font-weight: 200;
+				font-family: 'Gotham SSm A','Gotham SSm B', Gotham, "Helvetica Neue", sans-serif;
 			}
+			body {
+				width: 100%;
+				height: 100%;
+				background: #d9d9d9;
+				display: flex;
+				justify-content: center;
+			}
+			#browser {
+				display: flex;
+				flex-flow: column;
+				margin: auto;
+				border: solid 2px #888;
+				border-radius: 5px;
+				background: white;
+				box-shadow: 0px 0px 20px rgba(0,0,0,0.75);
+			}
+			#bar {
+				border-radius: 3px 3px 0 0;
+				border-bottom: solid 2px #888;
+				background-image: -webkit-linear-gradient(top,#e1e1e1,#b1b1b1);
+				background-image: -moz-linear-gradient(top,#e1e1e1,#b1b1b1);
+				background-image: linear-gradient(top,#e1e1e1,#b1b1b1);
+				padding: 1em;
+				overflow: hidden;
+				display: flex;
+				justify-content: center;
+			}
+
+			#buttons, .btn, #urlbar {
+				float: left;
+			}
+
+			#buttons {
+				display: inline-block;
+				margin-right: 1em;
+			}
+
+			.btn {
+				padding: 3px;
+				border-top: solid 2px #888;
+				border-bottom: solid 2px #888;
+				width: 1em;
+				text-align: center;
+			}
+
+			.btn.left {
+				border: solid 2px #888;
+				border-radius: 3px 0 0 3px;
+			}
+
+			.btn.right {
+				border-right: solid 2px #888;
+				border-radius: 0 3px 3px 0;
+			}
+
+			#urlbar {
+				width: 90%;
+				float: right;
+				padding: 3px;
+				position: relative;
+			}
+
+			#urlbar input {
+				width: 100%;
+				text-indent: 0.2em;
+				font-size: 1em;
+				font-family: inherit;
+				border: solid 2px #888;
+				border-radius: 3px;
+			}
+
+			#screen-width, #screen-height {
+				font-size: 2em;
+			}
+
+			#pixel-ratio {
+				font-size: 1.5em;
+			}
+
+			#screen-width, #pixel-ratio {
+				position: relative;
+				top: 0.1em;
+				width: 100%;
+				text-align: center;
+			}
+
+			#screen-width p {
+				margin: 0;
+			}
+
+			#screen-height {
+				position: relative;
+				left: 0.1em;
+			}
+
+			#screen-height p {
+				margin: 0;
+			}
+
+			.row#bar {
+				flex: none;
+			}
+
+			.row#screen-width, .row#pixel-ratio {
+				flex: 1;
+			}
+
+			.row#screen-height {
+				flex: 2;
+			}
+
+			#pixel-ratio {
+				display: flex;
+				flex-flow: column;
+				justify-content: flex-end;
+			}
+
 		</style>
+		<script>
+			$(document).ready(function() {
+				var windowWidth = $(window).width();
+				var windowHeight = $(window).height();
+				var browserWidth = Math.round(windowWidth * 0.8);
+				var browserHeight = Math.round(windowHeight * 0.8);
+
+				$('#browser').width(browserWidth);
+				$('#browser').height(browserHeight);
+
+				var screenWidth = screen.width;
+				var screenHeight = screen.height;
+				$('#screen-width p').text(screenWidth + 'px');
+				$('#screen-height p').text(screenHeight + 'px');
+
+				var pixelRatio = window.devicePixelRatio;
+				$('#pixel-ratio p').text("Pixel ratio: " + pixelRatio);
+			});
+		</script>
 	</head>
 	<body>
-		<div id="container">
-			<h1>What is my resolution?</h1>
-			<div id="info">
+		<div id="browser">
+			<div class="row" id="bar">
+				<div id="buttons">
+					<a class="btn left">
+						<i class="fa fa-arrow-left" aria-hidden="true"></i>
+					</a>
+					<a class="btn right">
+						<i class="fa fa-arrow-right" aria-hidden="true"></i>
+					</a>
+				</div>
+				<div id="urlbar">
+					<input type="text" value="What is my resolution?" readonly/>
+				</div>
+			</div>
+			<div class="row" id="screen-width">
+				<p></p>
+			</div>
+			<div class="row" id="pixel-ratio">
+				<p></p>
+			</div>
+			<div class="row" id="screen-height">
+				<p></p>
 			</div>
 		</div>
-
-		<script>
-			var width = screen.width;
-			var height = screen.height;
-			var pixelRatio = window.devicePixelRatio;
-			var infoNode = document.getElementById('info');
-
-			var widthElem = document.createElement('p');
-			widthElem.textContent = "Width: " + width;
-			var heightElem = document.createElement('p');
-			heightElem.textContent = "Height: " + height;
-			var pixelRatioElem = document.createElement('p');
-			pixelRatioElem.textContent = "Pixel Ratio: " + pixelRatio;
-
-			infoNode.appendChild(widthElem);
-			infoNode.appendChild(heightElem);
-			infoNode.appendChild(pixelRatioElem);
-		</script>
 	</body>
 </html>
