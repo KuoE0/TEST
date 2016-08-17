@@ -1,0 +1,97 @@
+<html>
+	<head>
+		<title>Presentation Sender</title>
+		<style>
+			* {
+				font-size: 1.5rem;
+				font-family: sans-serif;
+			}
+			button {
+				width: 100%;
+				height: 10%;
+			}
+			p#logger {
+				border: 1px solid black;
+				padding: 0.5em;
+				font-family: monospace;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+function print_log(str) {
+	console.log(str);
+	var logger = document.getElementById('logger');
+	logger.innerHTML += str + '<br/>';
+}
+
+var conn = null;
+function launch() {
+	var req = new PresentationRequest('http://kuoe0.github.io/Test/presentation-receiver');
+	//var req = new PresentationRequest('http://invalid.com.tw/');
+	print_log('call PresentationRequest.start');
+	req.start().then(function(connection) {
+		print_log('session started: ' + connection.id + ' @' + connection.state);
+		connection.onconnect = function() {
+			print_log('session connected: ' + connection.state);
+			conn = connection;
+		};
+
+		connection.onclose = function() {
+			print_log('session state change: ' + connection.state);
+		};
+		connection.onterminate = function() {
+			print_log('session state change: ' + connection.state);
+		};
+		connection.onmessage = function(e) {
+			print_log('receive : ' + e.data);
+		};
+	}).catch(function(e) {
+		print_log('>>start error: ' + e);
+	});
+}
+
+function terminate() {
+	print_log('call PresentationConnection.terminate');
+	if (conn) {
+		print_log('>> ' + conn.id + ' @' + conn.state);
+		conn.terminate();
+	}
+}
+
+function sessionClose() {
+	print_log('call PresentationConnection.close');
+	if (conn) {
+		print_log('>> ' + conn.id + ' @' + conn.state);
+		conn.close();
+	}
+}
+
+function sendDate() {
+	print_log('call PresentationConnection.send');
+	if (conn) {
+		print_log('>> ' + conn.id + ' @' + conn.state);
+		conn.send(Date());
+	}
+}
+		</script>
+		<div>
+			<p>
+				<button onclick="launch();">Launch Presentation</button>
+			</p>
+			<p>
+				<button onclick="terminate();">Terminate Presentation</button>
+			</p>
+			<p>
+				<button onclick="sessionClose();">Close Presentation Connection</button>
+			</p>
+			<p>
+				<button onclick="sendDate();">Send Date String</button>
+			</p>
+		</div>
+		<div>
+			<p id="logger">
+			</p>
+		</div>
+	</body>
+</html>
