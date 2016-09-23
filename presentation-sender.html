@@ -28,7 +28,6 @@ function print_log(str) {
 var conn = null;
 function launch() {
 	var req = new PresentationRequest('http://kuoe0.github.io/Test/presentation-receiver');
-	//var req = new PresentationRequest('http://invalid.com.tw/');
 	print_log('call PresentationRequest.start');
 	req.start().then(function(connection) {
 		print_log('session started: ' + connection.id + ' @' + connection.state);

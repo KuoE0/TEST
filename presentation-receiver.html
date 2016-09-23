@@ -104,6 +104,17 @@ var conn = null;
 			};
 		};
 	});
+
+	let timeToTerminate = 10;
+	let countdown = () => {
+		if (timeToTerminate == 0) {
+			conn.terminate();
+		}
+		print_log(timeToTerminate + " sec to terminate!");
+		timeToTerminate -= 1;
+		setTimeout(countdown, 1000);
+	};
+	setTimeout(countdown, 1000);
 })();
 
 function terminate() {
